@@ -12,9 +12,10 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.RemoteInput;
 import android.util.Log;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.RemoteInput;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
@@ -135,14 +136,9 @@ public class DisplayNotificationTask extends AsyncTask<Void, Void, Void> {
         }
 
         if (bigPicture.containsKey("largeIcon")) {
-          String largeIconStr = bigPicture.getString("largeIcon");
-          if (largeIconStr == null) {
-            bp = bp.bigLargeIcon(null);
-          } else {
-            Bitmap largeIconBitmap = getBitmap(largeIconStr);
-            if (largeIconBitmap != null) {
-              bp = bp.bigLargeIcon(largeIconBitmap);
-            }
+          Bitmap largeIcon = getBitmap(bigPicture.getString("largeIcon"));
+          if (largeIcon != null) {
+            bp = bp.bigLargeIcon(largeIcon);
           }
         }
 
